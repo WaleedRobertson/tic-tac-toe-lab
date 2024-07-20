@@ -1,12 +1,12 @@
 //1) Define the required variables used to track the state of the game.
-let board 
-let turn
-let winner
-let tie
+//let board
+//let turn
+//let winner
+//let tie
 //2) Store cached element references.
 const squareEls = document.querySelectorAll('.sqr')
 const messageEl = document.querySelector('#message')
-console.dir(messageEl)
+
 //3) Upon loading, the game state should be initialized, and a function should 
 //   be called to render this game state.
 
@@ -25,7 +25,10 @@ console.dir(messageEl)
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-
+let board = ["", "", "", "", "", "", "", "", ""]
+let turn = X; 
+let winner = false; 
+let tie = false; 
 
 
 /*------------------------ Cached Element References ------------------------*/
@@ -33,6 +36,11 @@ console.dir(messageEl)
 
 
 /*-------------------------------- Functions --------------------------------*/
+function init() {
+    console.log("Initialization complete");
+}
+
+render();
 
 
 
