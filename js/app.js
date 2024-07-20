@@ -31,7 +31,7 @@ const winningCombos = [
     [0, 4, 8], // Diagonal from top-left to bottom-right
     [2, 4, 6]  // Diagonal from top-right to bottom-left
 ];
-  
+
 
 
 /*---------------------------- Variables (state) ----------------------------*/
@@ -46,6 +46,23 @@ let tie = false;
 
 
 /*-------------------------------- Functions --------------------------------*/
+function handleClick(event) {
+}
+
+squareEls.addEventListener('click', event => {
+   
+    const squareIndex = parseInt(event.target.id);
+
+if ((board[squareIndex === 'X' || 'O']) || (winner = true)){
+    return; 
+}
+
+
+
+
+
+
+})
 // function init() {
 
 // }
