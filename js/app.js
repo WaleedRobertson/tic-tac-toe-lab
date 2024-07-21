@@ -2,8 +2,7 @@
 
 
 
-const squareEls = document.querySelectorAll('.sqr')
-const messageEl = document.querySelector('#message')
+
 
 //3) Upon loading, the game state should be initialized, and a function should 
 //   be called to render this game state.
@@ -17,6 +16,11 @@ const messageEl = document.querySelector('#message')
 
 
 /*-------------------------------- Constants --------------------------------*/
+const squareEls = document.querySelectorAll('.sqr')
+const messageEl = document.querySelector('#message')
+const resetBtnEl = document.getElementById('reset');
+
+
 const winningCombos = [
     [0, 1, 2], // Top row
     [3, 4, 5], // Middle row
@@ -32,74 +36,33 @@ const winningCombos = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board = ["", "", "", "", "", "", "", "", ""]
-let turn = X;
+let turn = 'X';
 let winner = false;
 let tie = true;
 
 
 /*------------------------ Cached Element References ------------------------*/
-
-
+resetBtnEl.addEventListener('click', function(event) {
+    init();
+});
 
 /*-------------------------------- Functions --------------------------------*/
-
+function init() {
+    ; 
+}
 function handleClick(event) {
     const squareIndex = parseInt(event.target.id);
 
     if (board[squareIndex] === 'X' || board[squareIndex] === 'O' || winner === true) {
         return;
     }
-
     placePiece(squareIndex);
     checkForWinner();
-    checkForTie(); 
-switchPlayerTurn();
+    checkForTie();
+    switchPlayerTurn();
     render();
-
     // Switch turns
     turn = turn === 'X' ? 'O' : 'X';
-}
-
-function checkForTie() {
-    if (winner) {
-        return;
-    }
-
-    tie = !board.includes('');
-}
-// function init() {
-
-// }
-
-
-function render() {
-    updateBoard();
-    updateMessage();
-}
-
-render()
-
-function updateBoard() {
-    board.forEach((cellValue, index) => {
-        const square = squareEls[index];
-        square.textContent = cellValue;
-    })
-}
-
-function updateMessage() {
-    const messageEl = document.getElementById('message');
-
-    if (!winner && !tie) {
-        // Game is still in progress
-        messageEl.textContent = `It's 's turn.`;
-    } else if (!winner && tie) {
-        // Game is a tie
-        messageEl.textContent = 'It\'s a tie!';
-    } else {
-        // There is a winner
-        messageEl.textContent = `Congratulations! Player  has won.`;
-
-    }
 }
 
 function checkForWinner() {
@@ -112,20 +75,50 @@ function checkForWinner() {
     }
 }
 
+function checkForTie() {
+    if (winner) {
+        return;
+    }
+    tie = !board.includes('');
+}
+
+function updateBoard() {
+    board.forEach((cellValue, index) => {
+        const square = squareEls[index];
+        square.textContent = cellValue;
+    })
+}
+
+function updateMessage() {
+
+    if (!winner && !tie) {
+        // Game is still in progress
+        messageEl.textContent = (`It's 's turn.`);
+    } else if (!winner && tie) {
+        // Game is a tie
+        messageEl.textContent = ('It\'s a tie!');
+    } else {
+        // There is a winner
+        messageEl.textContent = (`Congratulations! Player  has won.`);
+    }
+}
+
 function placePiece(index) {
     board[index] = turn;
-
 }
 
 function switchPlayerTurn() {
     if (winner) {
         return;
     }
-
     turn = turn === 'X' ? 'O' : 'X';
 }
 
-
+function render() {
+    updateBoard();
+    updateMessage();
+}
+render()
 
 /*----------------------------- Event Listeners -----------------------------*/
 
