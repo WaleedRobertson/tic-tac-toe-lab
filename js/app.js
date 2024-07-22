@@ -94,10 +94,12 @@ function updateMessage() {
     if (!winner && !tie) {
         // Game is still in progress
         messageEl.textContent = (`It's 's turn.`);
-    } else if (!winner && tie) {
+    } 
+    else if (!winner && tie) {
         // Game is a tie
         messageEl.textContent = ('It\'s a tie!');
-    } else {
+    }
+     else {
         // There is a winner
         messageEl.textContent = (`Congratulations! Player  has won.`);
     }
@@ -114,12 +116,16 @@ function switchPlayerTurn() {
     turn = turn === 'X' ? 'O' : 'X';
 }
 
+// Upon loading, the game state should be initialized, and a function should 
+// //   be called to render this game state.
+
+// //4) The state of the game should be rendered to the user.
+
 function render() {
     updateBoard();
     updateMessage();
 }
 render()
-
 /*----------------------------- Event Listeners -----------------------------*/
 
 
