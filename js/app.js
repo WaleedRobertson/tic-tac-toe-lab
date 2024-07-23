@@ -4,22 +4,26 @@
 
 
 
-//3) Upon loading, the game state should be initialized, and a function should 
-//   be called to render this game state.
+// //3) Upon loading, the game state should be initialized, and a function should 
+// //   be called to render this game state.
 
-//4) The state of the game should be rendered to the user.
+// //4) The state of the game should be rendered to the user.
 
-//5) Define the required constants.
+// //5) Define the required constants.
 
-//7) Create Reset functionality.
+// //7) Create Reset functionality.
 
 
 
-/*-------------------------------- Constants --------------------------------*/
-const squareEls = document.querySelectorAll('.sqr')
-const messageEl = document.querySelector('#message')
+// /*-------------------------------- Constants --------------------------------*/
+const squareEl = document.querySelector('.board');
+const messageEl = document.querySelector('#message');
+const squareOne = document.querySelector('#sqr-1');
 const resetBtnEl = document.getElementById('reset');
 
+squareOne.addEventListener ('click', event => {
+ 
+})
 
 const winningCombos = [
     [0, 1, 2], // Top row
@@ -29,40 +33,43 @@ const winningCombos = [
     [1, 4, 7], // Middle column
     [2, 5, 8], // Right column
     [0, 4, 8], // Diagonal from top-left to bottom-right
-    [2, 4, 6]  // Diagonal from top-right to bottom-left
-];
+    [2, 4, 6], ];
 
-
-
-/*---------------------------- Variables (state) ----------------------------*/
-let board = ["", "", "", "", "", "", "", "", ""]
+// // /*---------------------------- Variables (state) ----------------------------*/
+let board = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 let turn = 'X';
 let winner = false;
 let tie = true;
 
 
-/*------------------------ Cached Element References ------------------------*/
-resetBtnEl.addEventListener('click', function(event) {
-    init();
-});
+// // /*------------------------ Cached Element References ------------------------*/
 
-/*-------------------------------- Functions --------------------------------*/
+
+// // /*-------------------------------- Functions --------------------------------*/
 function init() {
-    ; 
+    board = ["", "", "", "", "", "", "", "", ""]; 
+    turn = 'X';
+    winner = false;
+    tie = false; 
+    render();
 }
+
 function handleClick(event) {
     const squareIndex = parseInt(event.target.id);
-
     if (board[squareIndex] === 'X' || board[squareIndex] === 'O' || winner === true) {
         return;
     }
     placePiece(squareIndex);
     checkForWinner();
     checkForTie();
-    switchPlayerTurn();
     render();
+    switchPlayerTurn();
     // Switch turns
     turn = turn === 'X' ? 'O' : 'X';
+}
+
+function placePiece(index) {
+    board[index] = turn;
 }
 
 function checkForWinner() {
@@ -82,9 +89,22 @@ function checkForTie() {
     tie = !board.includes('');
 }
 
+function switchPlayerTurn() {
+    if (winner) {
+        return;
+    }
+    turn = turn === 'X' ? 'O' : 'X';
+}
+
+function render() {
+    updateBoard();
+    updateMessage();
+}
+
+
 function updateBoard() {
     board.forEach((cellValue, index) => {
-        const square = squareEls[index];
+        const square = board[index];
         square.textContent = cellValue;
     })
 }
@@ -93,7 +113,7 @@ function updateMessage() {
 
     if (!winner && !tie) {
         // Game is still in progress
-        messageEl.textContent = (`It's 's turn.`);
+        messageEl.textContent = (`It's X's turn.`);
     } 
     else if (!winner && tie) {
         // Game is a tie
@@ -105,28 +125,18 @@ function updateMessage() {
     }
 }
 
-function placePiece(index) {
-    board[index] = turn;
-}
+init(); 
 
-function switchPlayerTurn() {
-    if (winner) {
-        return;
-    }
-    turn = turn === 'X' ? 'O' : 'X';
-}
+resetBtnEl.addEventListener('click', function(event) {
+    init();
+});
+// // Upon loading, the game state should be initialized, and a function should 
+// // //   be called to render this game state.
 
-// Upon loading, the game state should be initialized, and a function should 
-// //   be called to render this game state.
+// // //4) The state of the game should be rendered to the user.
 
-// //4) The state of the game should be rendered to the user.
 
-function render() {
-    updateBoard();
-    updateMessage();
-}
-render()
-/*----------------------------- Event Listeners -----------------------------*/
+// /*----------------------------- Event Listeners -----------------------------*/
 
 
 
